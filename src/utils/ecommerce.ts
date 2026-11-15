@@ -38,6 +38,8 @@ export function safeHostname(url: string): string | null {
 export function detectEcommerce(url: string): string | null {
   const host = safeHostname(url.trim());
   if (!host) return null;
+  // Amazon app share links use the short domain a.co (exact match: "a.co" is a substring of many hosts)
+  if (host === 'a.co') return 'Amazon';
   const match = DOMAIN_MAP.find(([fragment]) => host.includes(fragment));
   return match ? match[1] : null;
 }
