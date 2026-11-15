@@ -50,3 +50,17 @@ npm run preview   # http://localhost:4173
 Regenerar os ícones a partir de `public/logo.svg`: `npm run generate-pwa-assets`.
 
 > Em produção o PWA exige HTTPS. Recomenda-se servir a API na mesma origem (`VITE_API_URL=/api` atrás de um proxy reverso); o `vite.config.ts` já faz esse proxy para `localhost:8080` em `dev` e `preview`.
+
+## Deploy (Railway)
+
+Este repositório vira o serviço **frontend** do projeto no Railway: o `Dockerfile` faz o build do PWA, e o Caddy (`Caddyfile`) serve os arquivos e repassa `/api/*` ao backend pela rede privada. O backend não tem domínio público.
+
+Variáveis do serviço:
+
+| Variável | Valor |
+|---|---|
+| `PORT` | `8080` |
+| `BACKEND_URL` | `http://${{backend.RAILWAY_PRIVATE_DOMAIN}}:${{backend.PORT}}` |
+| `INTERNAL_TOKEN` | `${{shared.INTERNAL_TOKEN}}` |
+
+O passo a passo completo (projeto, banco, token e verificação) está em `DEPLOY.md`, no repositório **PurchasingOrganization-backend**.
