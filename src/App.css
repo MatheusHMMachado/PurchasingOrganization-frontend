@@ -63,3 +63,44 @@
 .recharts-tooltip-cursor {
   fill: var(--bs-secondary-bg);
 }
+
+/* --- Header (see Header.tsx) ------------------------------------------------ */
+/* Compact menu button so both header buttons fit in the side column */
+.navbar .navbar-toggler {
+  padding: 0.25rem 0.5rem;
+}
+
+.navbar .navbar-toggler-icon {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.app-header-brand {
+  min-width: 0;
+}
+
+/* Below lg (menu collapsed): buttons left, title centered between two equal columns */
+@media (max-width: 991.98px) {
+  .app-header-side {
+    flex: 0 0 80px;
+  }
+
+  .app-header-brand {
+    flex: 1 1 0;
+    justify-content: center;
+    margin: 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .app-header-brand {
+    font-size: 1rem;
+  }
+}
+
+/* Desktop: theme button, then the title, navigation on the right */
+@media (min-width: 992px) {
+  .app-header-brand {
+    margin-left: 0.5rem;
+  }
+}
