@@ -13,7 +13,7 @@ export default defineConfig({
       includeAssets: ['favicon.ico', 'apple-touch-icon-180x180.png', 'logo.svg'],
       manifest: {
         id: '/',
-        name: 'PurchasingOrganization',
+        name: 'Organizador De Compras',
         short_name: 'Compras',
         description: 'Organize remessas de compra e compare promoções encontradas na internet.',
         lang: 'pt-BR',
