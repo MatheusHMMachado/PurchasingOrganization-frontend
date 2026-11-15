@@ -13,7 +13,7 @@ export default function DashboardFilterBar({ filters, batches, onChange, onClear
   const hasFilters = Object.values(filters).some((v) => v !== undefined && v !== '');
 
   return (
-    <div className="bg-light rounded p-3 mb-4">
+    <div className="bg-body-secondary rounded p-3 mb-4">
       <div className="d-flex align-items-center gap-2 mb-2">
         <FiFilter /> <strong className="small">Filtros</strong>
         {hasFilters && (

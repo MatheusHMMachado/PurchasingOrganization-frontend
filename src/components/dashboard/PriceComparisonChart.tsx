@@ -18,7 +18,7 @@ export default function PriceComparisonChart({ data }: Props) {
 
   return (
     <Card className="border-0 shadow-sm">
-      <Card.Header className="bg-white fw-semibold">
+      <Card.Header className="bg-body fw-semibold">
         Comparação de Preços por E-commerce
       </Card.Header>
       <Card.Body>

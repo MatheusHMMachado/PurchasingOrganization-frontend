@@ -103,7 +103,7 @@ export default function ItemList({
       {items.length > 0 && (
         <div className="d-flex flex-column flex-md-row gap-2 align-items-md-center mb-3">
           <InputGroup className="flex-md-grow-1" style={{ maxWidth: 420 }}>
-            <InputGroup.Text className="bg-white"><FiSearch /></InputGroup.Text>
+            <InputGroup.Text className="bg-body"><FiSearch /></InputGroup.Text>
             <Form.Control
               type="search"
               placeholder="Buscar item na lista..."
@@ -172,7 +172,7 @@ export default function ItemList({
                       {item.name}
                     </span>
                     {item.category && (
-                      <Badge bg="light" text="dark" className="ms-2 fw-normal">
+                      <Badge bg="secondary-subtle" text="secondary-emphasis" className="ms-2 fw-normal">
                         <FiTag size={10} className="me-1" />
                         {item.category}
                       </Badge>

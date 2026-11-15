@@ -19,7 +19,7 @@ export default function EcommerceDistributionChart({ data }: Props) {
 
   return (
     <Card className="border-0 shadow-sm">
-      <Card.Header className="bg-white fw-semibold">
+      <Card.Header className="bg-body fw-semibold">
         Distribuição por E-commerce
       </Card.Header>
       <Card.Body>

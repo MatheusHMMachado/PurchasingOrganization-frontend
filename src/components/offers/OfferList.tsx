@@ -20,7 +20,7 @@ export default function OfferList({ offers, itemName, onAddClick, onEdit, onDele
 
   return (
     <Card className="border-0 shadow-sm">
-      <Card.Header className="bg-white d-flex flex-wrap gap-2 justify-content-between align-items-center">
+      <Card.Header className="bg-body d-flex flex-wrap gap-2 justify-content-between align-items-center">
         <h6 className="mb-0">Ofertas para: <strong>{itemName}</strong></h6>
         <div className="d-flex gap-2">
           <Button size="sm" variant="success" onClick={onAddClick}>

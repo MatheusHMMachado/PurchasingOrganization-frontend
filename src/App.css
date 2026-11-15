@@ -11,20 +11,55 @@
   transition: all 0.2s ease;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar (follows the light/dark theme) */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--bs-tertiary-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #adb5bd;
+  background: var(--bs-secondary-color);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6c757d;
+  background: var(--bs-emphasis-color);
+}
+
+/*
+ * Recharts draws axes, grid and tooltip with fixed light-theme colors. CSS wins over SVG
+ * presentation attributes, so these follow the Bootstrap theme variables instead.
+ */
+.recharts-cartesian-grid line {
+  stroke: var(--bs-border-color);
+}
+
+.recharts-cartesian-axis-line,
+.recharts-cartesian-axis-tick-line {
+  stroke: var(--bs-border-color);
+}
+
+.recharts-cartesian-axis-tick-value {
+  fill: var(--bs-secondary-color);
+}
+
+.recharts-legend-item-text {
+  color: var(--bs-body-color) !important;
+}
+
+.recharts-default-tooltip {
+  background-color: var(--bs-body-bg) !important;
+  border-color: var(--bs-border-color) !important;
+  border-radius: 6px;
+}
+
+.recharts-tooltip-label {
+  color: var(--bs-body-color);
+}
+
+.recharts-tooltip-cursor {
+  fill: var(--bs-secondary-bg);
 }

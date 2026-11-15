@@ -33,7 +33,14 @@ function App() {
         position="top-right"
         toastOptions={{
           duration: 3000,
-          style: { borderRadius: '8px', fontSize: '14px' },
+          // Theme variables so toasts follow light/dark mode
+          style: {
+            borderRadius: '8px',
+            fontSize: '14px',
+            background: 'var(--bs-body-bg)',
+            color: 'var(--bs-body-color)',
+            border: '1px solid var(--bs-border-color)',
+          },
         }}
       />
     </BrowserRouter>

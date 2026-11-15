@@ -57,7 +57,7 @@ export default function SummaryCards({ summary, batchFiltered = false }: Props) 
       title: batchFiltered ? 'Total da Remessa' : 'Total das Remessas',
       value: formatBRL(summary.best_price_total),
       icon: <FiShoppingBag size={28} />,
-      color: 'dark',
+      color: 'secondary',
       hint:
         priced !== undefined
           ? `melhor preço de ${priced} de ${summary.total_items} ${summary.total_items === 1 ? 'item' : 'itens'}`
