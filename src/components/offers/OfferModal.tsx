@@ -5,6 +5,7 @@ import type { Offer, OfferFormData } from '../../types';
 import {
   ECOMMERCE_OPTIONS,
   detectEcommerce,
+  isHttpUrl,
   parsePrice,
   safeHostname,
 } from '../../utils/ecommerce';
@@ -52,7 +53,7 @@ export default function OfferModal({ show, itemName, offer, initialLink, onHide,
     }
   };
 
-  const linkValid = safeHostname(link) !== null && /^https?:\/\//i.test(link.trim());
+  const linkValid = isHttpUrl(link) && link.trim().length <= 2048;
   const parsedPrice = parsePrice(price);
   const formValid = linkValid && Boolean(ecommerce) && parsedPrice !== null;
 

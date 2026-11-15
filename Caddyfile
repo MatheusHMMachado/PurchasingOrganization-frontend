@@ -6,19 +6,37 @@
 	admin off
 	auto_https off
 	servers {
-		# O Railway termina o HTTPS; confia no X-Forwarded-* dele
-		trusted_proxies static private_ranges
+		# O Railway termina o HTTPS e repassa o IP do cliente em X-Forwarded-For.
+		# strict: le o X-Forwarded-For da direita para a esquerda, entao um IP falso
+		# enviado pelo cliente (a esquerda) nao e usado como client_ip.
+		trusted_proxies static private_ranges 100.64.0.0/10
+		trusted_proxies_strict
 	}
 }
 
 :{$PORT:8080} {
 	encode zstd gzip
 
-	# API: repassada ao backend pela rede privada. O header e sempre sobrescrito,
-	# entao um cliente nao consegue forjar o token.
+	# Cabecalhos de seguranca em todas as respostas (app e API)
+	header {
+		# Navegador so acessa este dominio por HTTPS por 1 ano
+		Strict-Transport-Security "max-age=31536000"
+		# Tudo vem da propria origem; nenhum script embutido ou de terceiros.
+		# style 'unsafe-inline': React/Recharts/toasts usam style="" e <style> gerados em runtime.
+		Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		X-Frame-Options DENY
+		-Server
+	}
+
+	# API: repassada ao backend pela rede privada. Os headers abaixo sao sempre
+	# sobrescritos, entao o cliente nao consegue forjar o token nem o IP.
 	handle /api/* {
 		reverse_proxy {$BACKEND_URL} {
 			header_up X-Internal-Token "{$INTERNAL_TOKEN}"
+			header_up X-Client-IP {client_ip}
 			header_up -X-Forwarded-Host
 		}
 	}
@@ -29,18 +47,11 @@
 
 		# O service worker, o manifesto e o index.html precisam ser revalidados
 		# sempre, senao o aviso de "Nova versao" nunca aparece
-		@revalidate path /sw.js /registerSW.js /manifest.webmanifest /index.html /
+		@revalidate path /sw.js /registerSW.js /manifest.webmanifest /index.html / /theme-init.js
 		header @revalidate Cache-Control "no-cache"
 
 		# Arquivos com hash no nome podem ficar em cache para sempre
 		header /assets/* Cache-Control "public, max-age=31536000, immutable"
-
-		header {
-			X-Content-Type-Options nosniff
-			Referrer-Policy strict-origin-when-cross-origin
-			X-Frame-Options DENY
-			-Server
-		}
 
 		# Rotas do React Router (/batches/1, /share...) caem no index.html
 		try_files {path} /index.html

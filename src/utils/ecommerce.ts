@@ -34,6 +34,19 @@ export function safeHostname(url: string): string | null {
   }
 }
 
+/**
+ * True only for http(s) links with a host. Anything else (javascript:, data:...) must never
+ * become a clickable href, even if it is already stored in the database.
+ */
+export function isHttpUrl(url: string): boolean {
+  try {
+    const u = new URL(url.trim());
+    return (u.protocol === 'http:' || u.protocol === 'https:') && u.hostname !== '';
+  } catch {
+    return false;
+  }
+}
+
 /** Guesses the e-commerce from a URL. Returns null when unknown. */
 export function detectEcommerce(url: string): string | null {
   const host = safeHostname(url.trim());

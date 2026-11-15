@@ -9,7 +9,7 @@ import type {
   OfferFormData,
   DashboardFilters,
 } from '../types';
-import { http, isNetworkError } from './http';
+import { http, isNetworkError, isUnauthorized } from './http';
 import { newTempId, type Mutation } from '../offline/db';
 import {
   enqueue,
@@ -54,6 +54,11 @@ async function mutate<T>(mutation: Mutation, online: () => Promise<T>, optimisti
     reportReachable(true);
     return result;
   } catch (err) {
+    if (isUnauthorized(err)) {
+      // Session expired mid-use: keep the write; it is sent after the next login
+      await enqueue(mutation);
+      return optimistic();
+    }
     if (!isNetworkError(err)) throw err;
     reportReachable(false);
     await enqueue(mutation);

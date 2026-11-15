@@ -50,7 +50,9 @@ export default defineConfig({
           {
             // Reads from the API: fresh when online, last known data when offline.
             // Writes (POST/PUT/DELETE) are never cached; the offline queue handles them.
-            urlPattern: ({ url, request }) => request.method === 'GET' && url.pathname.startsWith('/api/'),
+            // /api/auth/* is never cached: a session must not look valid after it ended
+            urlPattern: ({ url, request }) =>
+              request.method === 'GET' && url.pathname.startsWith('/api/') && !url.pathname.startsWith('/api/auth/'),
             handler: 'NetworkFirst',
             method: 'GET',
             options: {

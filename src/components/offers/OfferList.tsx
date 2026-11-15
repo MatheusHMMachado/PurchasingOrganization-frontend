@@ -3,7 +3,7 @@ import { FiPlus, FiTrash2, FiExternalLink, FiAward, FiEdit2, FiX } from 'react-i
 import type { Offer } from '../../types';
 import EmptyState from '../common/EmptyState';
 import PendingBadge from '../pwa/PendingBadge';
-import { formatBRL, safeHostname } from '../../utils/ecommerce';
+import { formatBRL, isHttpUrl, safeHostname } from '../../utils/ecommerce';
 
 interface Props {
   offers: Offer[];
@@ -49,7 +49,8 @@ export default function OfferList({ offers, itemName, onAddClick, onEdit, onDele
             <tbody>
               {sorted.map((offer) => {
                 const isBest = Number(offer.price) === bestPrice;
-                const host = safeHostname(offer.link);
+                // Only http(s) links are clickable (blocks javascript:/data: links)
+                const host = isHttpUrl(offer.link) ? safeHostname(offer.link) : null;
                 return (
                   <tr key={offer.id}>
                     <td className="fw-medium">{offer.ecommerce}<PendingBadge show={offer._pending} /></td>

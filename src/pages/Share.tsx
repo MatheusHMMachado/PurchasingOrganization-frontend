@@ -5,7 +5,7 @@ import { FiLink, FiPackage, FiPlus, FiShare2, FiShoppingBag, FiTag } from 'react
 import toast from 'react-hot-toast';
 import Loading from '../components/common/Loading';
 import { createBatch, createItem, createOffer, getBatches, getItems } from '../services/api';
-import { ECOMMERCE_OPTIONS, detectEcommerce, parsePrice, safeHostname } from '../utils/ecommerce';
+import { ECOMMERCE_OPTIONS, detectEcommerce, isHttpUrl, parsePrice, safeHostname } from '../utils/ecommerce';
 import { parseSharedProduct } from '../utils/share';
 import type { Batch, Item } from '../types';
 
@@ -86,7 +86,7 @@ export default function Share() {
 
   const existingItem = batchItems.find((i) => String(i.id) === itemChoice);
   const parsedPrice = parsePrice(price);
-  const linkValid = safeHostname(link.trim()) !== null && /^https?:\/\//i.test(link.trim());
+  const linkValid = isHttpUrl(link) && link.trim().length <= 2048;
   const nameValid = Boolean(existingItem) || name.trim().length > 0;
   const batchValid = batchChoice === NEW_BATCH ? newBatchName.trim().length > 0 : Boolean(batchChoice);
   const formValid = nameValid && linkValid && Boolean(ecommerce) && parsedPrice !== null && batchValid;
