@@ -118,13 +118,7 @@ export default function Login({ expired = false }: Props) {
                 {submitting ? <Spinner size="sm" className="me-2" /> : <FiLogIn className="me-2" aria-hidden="true" />}
                 Entrar
               </Button>
-            </Form>
-
-            <p className="text-muted small text-center mt-3 mb-0">
-              {isPwa
-                ? 'No app instalado você permanece conectado.'
-                : 'No navegador a sessão dura até 1 dia.'}
-            </p>
+            </Form>          
           </Card.Body>
         </Card>
       </Container>
