@@ -24,7 +24,13 @@ export default function BatchCard({ batch, onDelete, onEdit }: Props) {
       <Card.Body className="d-flex flex-column">
         <div className="d-flex justify-content-between align-items-start mb-2">
           <Card.Title className="mb-0 fw-semibold">
-            {batch.name}
+            {/* stretched-link: the whole card navigates to the batch details */}
+            <Link
+              to={`/batches/${batch.id}`}
+              className="stretched-link text-reset text-decoration-none"
+            >
+              {batch.name}
+            </Link>
             <PendingBadge show={batch._pending} />
           </Card.Title>
           <Badge bg={status.variant} pill>{status.label}</Badge>
@@ -45,7 +51,8 @@ export default function BatchCard({ batch, onDelete, onEdit }: Props) {
           <small className="text-muted">
             {new Date(batch.created_at).toLocaleDateString('pt-BR')}
           </small>
-          <ButtonGroup size="sm">
+          {/* Above the stretched link so edit/delete keep working */}
+          <ButtonGroup size="sm" className="position-relative" style={{ zIndex: 2 }}>
             <Button
               as={Link as any}
               to={`/batches/${batch.id}`}

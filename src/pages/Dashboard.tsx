@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { FiBarChart2 } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import SummaryCards from '../components/dashboard/SummaryCards';
 import PriceComparisonChart from '../components/dashboard/PriceComparisonChart';
@@ -43,7 +44,10 @@ export default function Dashboard() {
 
   return (
     <Container className="py-4">
-      <h2 className="fw-bold mb-4">📊 Dashboard</h2>
+      <h2 className="fw-bold mb-4 d-flex align-items-center gap-2">
+        <FiBarChart2 className="text-primary" strokeWidth={1.75} aria-hidden="true" />
+        Dashboard
+      </h2>
 
       <DashboardFilterBar
         filters={filters}
@@ -52,7 +56,7 @@ export default function Dashboard() {
         onClear={() => setFilters({})}
       />
 
-      <SummaryCards summary={data.summary} />
+      <SummaryCards summary={data.summary} batchFiltered={Boolean(filters.batch_id)} />
 
       <Row className="g-3 mb-3">
         <Col lg={8}>

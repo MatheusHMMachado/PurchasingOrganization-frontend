@@ -1,6 +1,6 @@
 import { Container, Navbar, Nav } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
-import { FiShoppingCart, FiHome, FiList } from 'react-icons/fi';
+import { FiShoppingCart, FiBarChart2, FiPackage } from 'react-icons/fi';
 
 export default function Header() {
   const location = useLocation();
@@ -10,7 +10,7 @@ export default function Header() {
       <Container>
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center gap-2 fw-bold">
           <FiShoppingCart size={22} />
-          <span>PurchasingOrganization</span>
+          <span>Organização de Compras</span>
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
@@ -21,7 +21,7 @@ export default function Header() {
               active={location.pathname === '/'}
               className="d-flex align-items-center gap-1"
             >
-              <FiHome size={16} /> Dashboard
+              <FiBarChart2 size={16} aria-hidden="true" /> Dashboard
             </Nav.Link>
             <Nav.Link
               as={Link}
@@ -29,7 +29,7 @@ export default function Header() {
               active={location.pathname.startsWith('/batches')}
               className="d-flex align-items-center gap-1"
             >
-              <FiList size={16} /> Remessas
+              <FiPackage size={16} aria-hidden="true" /> Remessas
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

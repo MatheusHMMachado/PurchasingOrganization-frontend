@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Container, ListGroup, Modal, Spinner } from 'react-bootstrap';
-import { FiWifiOff, FiUploadCloud, FiAlertTriangle, FiRefreshCw, FiTrash2 } from 'react-icons/fi';
+import { FiWifiOff, FiUploadCloud, FiAlertTriangle, FiRefreshCw, FiTrash2, FiDownload } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import { useOutbox } from '../../hooks/useOutbox';
 import { dismissFailed, onQueued, retryFailed, syncNow } from '../../offline/outbox';
@@ -39,7 +39,7 @@ export default function SyncStatusBar() {
       onQueued(() =>
         toast('Sem conexão: alteração salva no aparelho e será enviada automaticamente.', {
           id: 'queued',
-          icon: '📥',
+          icon: <FiDownload className="text-info" strokeWidth={1.75} aria-hidden="true" />,
           duration: 4000,
         }),
       ),

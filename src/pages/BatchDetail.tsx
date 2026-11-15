@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Container, Badge, Breadcrumb } from 'react-bootstrap';
+import { FiShoppingCart } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import ItemList from '../components/items/ItemList';
 import { useRefetchOnSync } from '../hooks/useOutbox';
@@ -194,7 +195,10 @@ export default function BatchDetail() {
       )}
 
       {/* Items (ToDo list) */}
-      <h5 className="fw-semibold mb-3">🛒 Lista de Itens</h5>
+      <h5 className="fw-semibold mb-3 d-flex align-items-center gap-2">
+        <FiShoppingCart className="text-primary" strokeWidth={1.75} aria-hidden="true" />
+        Lista de Itens
+      </h5>
       <ItemList
         items={items}
         onAdd={handleAddItem}

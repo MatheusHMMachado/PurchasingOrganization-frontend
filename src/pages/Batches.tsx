@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { FiPlus } from 'react-icons/fi';
+import { FiPlus, FiPackage } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import BatchCard from '../components/batches/BatchCard';
 import BatchForm from '../components/batches/BatchForm';
@@ -72,7 +72,10 @@ export default function Batches() {
   return (
     <Container className="py-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="fw-bold mb-0">📦 Remessas de Compra</h2>
+        <h2 className="fw-bold mb-0 d-flex align-items-center gap-2">
+          <FiPackage className="text-primary" strokeWidth={1.75} aria-hidden="true" />
+          Remessas de Compra
+        </h2>
         <Button variant="primary" onClick={() => setShowForm(true)}>
           <FiPlus className="me-1" /> Nova Remessa
         </Button>

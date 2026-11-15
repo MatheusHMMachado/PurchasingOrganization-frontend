@@ -58,6 +58,10 @@ export interface DashboardSummary {
   best_price: number;
   worst_price: number;
   potential_savings: number;
+  /** Sum of the best price registered for each item (batch/item filters only) */
+  best_price_total?: number;
+  /** Items that have at least one offer, i.e. that make up best_price_total */
+  priced_items?: number;
 }
 
 export interface PriceByEcommerce {
